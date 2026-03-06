@@ -3,7 +3,6 @@ import { Routes, Route } from "react-router-dom";
 import { Container, Box } from "@mui/material";
 import Navbar from "./components/Navbar";
 
-// Pages (create empty files first)
 import Dashboard from "./pages/Dashboard";
 import AddExpense from "./pages/AddExpense";
 import AddFriend from "./pages/AddFriend";
@@ -31,7 +30,7 @@ const [expenses, setExpenses] = useState(() =>
     <>
       <Navbar />
 
-      <Container maxWidth="lg">
+      <Container maxWidth="lg" sx={{ px: { xs: 2, sm: 3 } }}>
         <Box mt={4}>
           <Routes>
             <Route

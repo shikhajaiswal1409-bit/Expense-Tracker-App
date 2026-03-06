@@ -13,6 +13,7 @@ import {
   DialogTitle,
   DialogContent,
   DialogActions,
+  TableContainer,
 } from "@mui/material";
 
 const ExpenseTable = ({ expenses, friends, setExpenses }) => {
@@ -30,7 +31,6 @@ const ExpenseTable = ({ expenses, friends, setExpenses }) => {
 
   return (
     <Paper sx={{ p: 3, borderRadius: 3 }}>
-      {/* Header Section */}
       <Box
         display="flex"
         justifyContent="space-between"
@@ -55,9 +55,11 @@ const ExpenseTable = ({ expenses, friends, setExpenses }) => {
           No expenses added yet.
         </Typography>
       ) : (
+        <TableContainer sx={{ overflowX: "auto" }}>
         <Table>
           <TableHead>
             <TableRow>
+            <TableCell><strong>Category</strong></TableCell>
               <TableCell><strong>Description</strong></TableCell>
               <TableCell><strong>Paid By</strong></TableCell>
               <TableCell><strong>Amount</strong></TableCell>
@@ -67,6 +69,7 @@ const ExpenseTable = ({ expenses, friends, setExpenses }) => {
           <TableBody>
             {expenses.map((expense) => (
               <TableRow key={expense.id}>
+              <TableCell>{expense.category}</TableCell>
                 <TableCell>{expense.description}</TableCell>
                 <TableCell>{friendMap[expense.paidBy]}</TableCell>
                 <TableCell>₹{expense.amount}</TableCell>
@@ -74,9 +77,9 @@ const ExpenseTable = ({ expenses, friends, setExpenses }) => {
             ))}
           </TableBody>
         </Table>
+        </TableContainer>
       )}
 
-      {/* Confirmation Dialog */}
       <Dialog open={open} onClose={() => setOpen(false)}>
         <DialogTitle>Delete All Expenses?</DialogTitle>
         <DialogContent>

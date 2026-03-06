@@ -10,11 +10,14 @@ import {
   Box,
   Button,
   Divider,
-  Alert
+  Alert,
+  TableContainer,
+  Checkbox
 } from "@mui/material";
 
 const Balances = ({ friends, expenses, setExpenses }) => {
   const [settled, setSettled] = useState(false);
+  const [completed, setCompleted] = useState([]);
 
   const totalExpense = expenses.reduce(
     (acc, expense) => acc + Number(expense.amount),
@@ -90,6 +93,14 @@ const creditors = balanceCopy.filter((b) => b.balance > 0).sort((a,b)=>b.balance
     setSettled(true);
   };
 
+  const toggleSettlement = (index) => {
+  setCompleted((prev) =>
+    prev.includes(index)
+      ? prev.filter((i) => i !== index)
+      : [...prev, index]
+  );
+};
+
   if (friends.length === 0) {
   return (
     <Typography mt={4}>
@@ -100,7 +111,14 @@ const creditors = balanceCopy.filter((b) => b.balance > 0).sort((a,b)=>b.balance
 
   return (
     <Box mt={4}>
-      <Typography variant="h4" fontWeight={600} gutterBottom>
+      <Typography sx={{
+    fontSize: {
+      xs: "1.6rem",
+      sm: "2rem",
+      md: "2.2rem",
+    },
+    fontWeight: 600
+  }} fontWeight={600} gutterBottom>
         Settlement Overview
       </Typography>
 
@@ -108,6 +126,8 @@ const creditors = balanceCopy.filter((b) => b.balance > 0).sort((a,b)=>b.balance
 
       {/* Balance Table */}
       <Paper elevation={3} sx={{ p: 3, borderRadius: 3, mt: 3 }}>
+      <TableContainer sx={{ overflowX: "auto" }}>
+
         <Table>
           <TableHead>
             <TableRow>
@@ -145,9 +165,9 @@ const creditors = balanceCopy.filter((b) => b.balance > 0).sort((a,b)=>b.balance
             ))}
           </TableBody>
         </Table>
+        </TableContainer>
       </Paper>
 
-      {/* Final Settlement Instructions */}
       <Paper elevation={3} sx={{ p: 3, borderRadius: 3, mt: 4 }}>
         <Typography variant="h6" fontWeight={600} gutterBottom>
           Final Settlement
@@ -155,7 +175,7 @@ const creditors = balanceCopy.filter((b) => b.balance > 0).sort((a,b)=>b.balance
 
         <Divider sx={{ mb: 2 }} />
 
-        {settlements.length === 0 ? (
+        {/* {settlements.length === 0 ? (
           <Typography>Everything is already balanced 🎉</Typography>
         ) : (
           settlements.map((s, index) => (
@@ -163,13 +183,50 @@ const creditors = balanceCopy.filter((b) => b.balance > 0).sort((a,b)=>b.balance
               {s.from} → Pay {s.to} ₹{s.amount}
             </Typography>
           ))
-        )}
+        )} */}
+
+        {settlements.length === 0 ? (
+  <Typography>Everything is already balanced 🎉</Typography>
+) : (
+  settlements.map((s, index) => (
+    <Box
+      key={index}
+      display="flex"
+      alignItems="center"
+      justifyContent="space-between"
+      sx={{ mb: 1 }}
+    >
+      <Box display="flex" alignItems="center" gap={1}>
+        <Checkbox
+          checked={completed.includes(index)}
+          onChange={() => toggleSettlement(index)}
+          color="success"
+        />
+
+        <Typography
+          sx={{
+            textDecoration: completed.includes(index)
+              ? "line-through"
+              : "none",
+            color: completed.includes(index)
+              ? "text.secondary"
+              : "text.primary",
+            fontWeight: 500,
+          }}
+        >
+          {s.from} → Pay {s.to} ₹{s.amount}
+        </Typography>
+      </Box>
+    </Box>
+  ))
+)}
 
         {settlements.length > 0 && (
           <Button
             variant="contained"
             color="success"
             sx={{ mt: 3 }}
+            disabled={completed.length !== settlements.length}
             onClick={handleMarkAsSettled}
           >
             Mark as Settled

@@ -55,12 +55,19 @@ const AddFriendForm = ({ friends, setFriends }) => {
 
   return (
     <Paper sx={{ p: 4, borderRadius: 3 }}>
-      <Typography variant="h4" gutterBottom>
+      <Typography sx={{
+    fontSize: {
+      xs: "1.6rem",
+      sm: "2rem",
+      md: "2.2rem",
+    },
+    fontWeight: 600
+  }} gutterBottom>
         Add Friend
       </Typography>
 
-      {/* Add Friend Input */}
-      <Box display="flex" gap={2} mb={4}>
+      <Box display="flex"   flexDirection={{ xs: "column", sm: "row" }}
+ gap={2} mb={4}>
         <TextField
           label="Friend Name"
           value={name}

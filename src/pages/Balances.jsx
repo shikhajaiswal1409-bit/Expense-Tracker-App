@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Typography,
   Paper,
@@ -17,7 +17,13 @@ import {
 
 const Balances = ({ friends, expenses, setExpenses }) => {
   const [settled, setSettled] = useState(false);
-  const [completed, setCompleted] = useState([]);
+const [completed, setCompleted] = useState(() => {
+  return JSON.parse(localStorage.getItem("completedSettlements")) || [];
+});
+
+useEffect(() => {
+  localStorage.setItem("completedSettlements", JSON.stringify(completed));
+}, [completed]);
 
   const totalExpense = expenses.reduce(
     (acc, expense) => acc + Number(expense.amount),

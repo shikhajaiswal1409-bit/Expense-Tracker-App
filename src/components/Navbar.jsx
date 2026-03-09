@@ -75,7 +75,7 @@ const Navbar = () => {
           </Box>
 
           <Box sx={{ display: { xs: "block", md: "none" } }}>
-            <IconButton onClick={() => setOpen(true)}>
+            <IconButton color="inherit" onClick={() => setOpen(true)}>
               <MenuIcon />
             </IconButton>
           </Box>

@@ -28,18 +28,19 @@ const AddFriendForm = ({ friends, setFriends }) => {
       name: name.trim(),
       createdAt: new Date().toISOString(),
     };
-
-    setFriends([...friends, newFriend]);
-    setName("");
+    console.log("New friend added: ", newFriend)
+    setFriends([...friends, newFriend])
+    setName("")
   };
 
   const handleDelete = (id) => {
-    const updated = friends.filter((friend) => friend.id !== id);
-    setFriends(updated);
+    console.log("Deleting Friend ID: ", id)
+    const updated = friends.filter((friend) => friend.id !== id)
+    setFriends(updated)
   };
 
   const handleEdit = (friend) => {
-    setEditingId(friend.id);
+    setEditingId(friend.id)
     setEditingName(friend.name);
   };
 
@@ -48,9 +49,9 @@ const AddFriendForm = ({ friends, setFriends }) => {
       friend.id === id ? { ...friend, name: editingName } : friend
     );
 
-    setFriends(updated);
-    setEditingId(null);
-    setEditingName("");
+    setFriends(updated)
+    setEditingId(null)
+    setEditingName("")
   };
 
   return (
@@ -139,3 +140,6 @@ const AddFriendForm = ({ friends, setFriends }) => {
 };
 
 export default AddFriendForm;
+
+
+

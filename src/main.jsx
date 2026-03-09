@@ -1,12 +1,32 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import App from './App.jsx'
-import { BrowserRouter } from 'react-router-dom'
+// import { StrictMode } from 'react'
+// import { createRoot } from 'react-dom/client'
+// import App from './App.jsx'
+// import { BrowserRouter } from 'react-router-dom'
 
-createRoot(document.getElementById('root')).render(
-  <StrictMode>
+// createRoot(document.getElementById('root')).render(
+//   <StrictMode>
+//   <BrowserRouter>
+//     <App />
+//     </BrowserRouter>
+//   </StrictMode>,
+// )
+
+
+import React from "react";
+import ReactDOM from "react-dom/client";
+import App from "./App";
+
+import { Provider } from "react-redux";
+import { store } from "./store/store";
+import { BrowserRouter } from "react-router-dom";
+
+ReactDOM.createRoot(document.getElementById("root")).render(
+  <Provider store={store}>
   <BrowserRouter>
     <App />
     </BrowserRouter>
-  </StrictMode>,
-)
+  </Provider>
+);
+
+// Read State: useSelector(state => state.friends)
+// Update State: dispatch(addFriend(friend))

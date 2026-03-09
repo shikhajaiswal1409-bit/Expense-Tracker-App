@@ -1,4 +1,4 @@
-import {useState, useEffect} from "react";
+{/*import {useState, useEffect} from "react";
 import { Routes, Route } from "react-router-dom";
 import { Container, Box } from "@mui/material";
 import Navbar from "./components/Navbar";
@@ -16,8 +16,10 @@ function App() {
 const [expenses, setExpenses] = useState(() =>
   JSON.parse(localStorage.getItem("expenses")) || []
 );
+
+console.log("Friends: ", friends);
+console.log("Expenses: ", expenses)
   
-  // Save to localStorage
   useEffect(() => {
     localStorage.setItem("friends", JSON.stringify(friends));
   }, [friends]);
@@ -71,3 +73,57 @@ const [expenses, setExpenses] = useState(() =>
 }
 
 export default App;
+*/
+}
+
+
+
+
+import { Routes, Route } from "react-router-dom";
+import { Container, Box } from "@mui/material";
+import Navbar from "./components/Navbar";
+
+import Dashboard from "./pages/Dashboard";
+import AddExpense from "./pages/AddExpense";
+import AddFriend from "./pages/AddFriend";
+import Balances from "./pages/Balances";
+
+function App() {
+ 
+  return (
+    <>
+      <Navbar />
+
+      <Container maxWidth="lg" sx={{ px: { xs: 2, sm: 3 } }}>
+        <Box mt={4}>
+          <Routes>
+            <Route
+              path="/"
+              element={<Dashboard />}
+            />
+            
+            
+          <Route
+              path="/balances"
+              element={<Balances />}
+            />
+
+            <Route
+              path="/add-expense"
+              element={<AddExpense />}
+            />
+
+            <Route
+              path="/add-friend"
+              element={<AddFriend  />}
+            />
+          </Routes>
+        </Box>
+      </Container>
+    </>
+  );
+}
+
+export default App;
+
+
